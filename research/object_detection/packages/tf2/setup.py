@@ -21,7 +21,7 @@ REQUIRED_PACKAGES = [
     'lvis',
     'scipy',
     'pandas',
-    'tf-models-official==2.4.0'
+    'tf-models-official'
 ]
 
 setup(
