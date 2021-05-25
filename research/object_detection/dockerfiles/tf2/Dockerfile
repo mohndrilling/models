@@ -16,7 +16,10 @@ RUN apt-get update && apt-get install -y \
     sudo \
     tmux \
     nano \
-    libgl1-mesa-glx
+    libgl1-mesa-glx \
+    htop \
+    iputils-ping
+
 
 # Install gcloud and gsutil commands
 # https://cloud.google.com/sdk/docs/quickstart-debian-ubuntu
@@ -45,5 +48,7 @@ ENV PATH="/home/tf/.local/bin:${PATH}"
 
 RUN python -m pip install -U pip
 RUN python -m pip install .
+
+RUN python -m pip install boto3
 
 ENV TF_CPP_MIN_LOG_LEVEL 3
