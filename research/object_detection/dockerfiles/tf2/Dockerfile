@@ -18,7 +18,8 @@ RUN apt-get update && apt-get install -y \
     nano \
     libgl1-mesa-glx \
     htop \
-    iputils-ping
+    iputils-ping \
+    google-perftools
 
 
 # Install gcloud and gsutil commands
@@ -33,8 +34,8 @@ RUN export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)" && \
 ARG USER=tf
 ARG PW='tf'
 RUN useradd -m ${USER} && echo "${USER}:${PW}" | chpasswd
-RUN adduser ${USER} sudo
 USER tf
+RUN adduser ${USER} sudo
 
 # Copy this version of of the model garden into the image
 COPY --chown=tf . /home/tf/models
