@@ -34,8 +34,9 @@ RUN export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)" && \
 ARG USER=tf
 ARG PW='tf'
 RUN useradd -m ${USER} && echo "${USER}:${PW}" | chpasswd
+USER root
+RUN sudo adduser ${USER} sudo
 USER tf
-RUN adduser ${USER} sudo
 
 # Copy this version of of the model garden into the image
 COPY --chown=tf . /home/tf/models
