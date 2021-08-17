@@ -16,7 +16,11 @@ RUN apt-get update && apt-get install -y \
     sudo \
     tmux \
     nano \
-    libgl1-mesa-glx
+    libgl1-mesa-glx \
+    htop \
+    iputils-ping \
+    google-perftools
+
 
 # Install gcloud and gsutil commands
 # https://cloud.google.com/sdk/docs/quickstart-debian-ubuntu
@@ -30,7 +34,8 @@ RUN export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)" && \
 ARG USER=tf
 ARG PW='tf'
 RUN useradd -m ${USER} && echo "${USER}:${PW}" | chpasswd
-RUN adduser ${USER} sudo
+USER root
+RUN sudo adduser ${USER} sudo
 USER tf
 
 # Copy this version of of the model garden into the image
@@ -45,5 +50,7 @@ ENV PATH="/home/tf/.local/bin:${PATH}"
 
 RUN python -m pip install -U pip
 RUN python -m pip install .
+
+RUN python -m pip install boto3
 
 ENV TF_CPP_MIN_LOG_LEVEL 3
