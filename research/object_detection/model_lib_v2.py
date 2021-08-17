@@ -624,7 +624,7 @@ def train_loop(
               add_regularization_loss=add_regularization_loss,
               clip_gradients_value=clip_gradients_value,
               global_step=global_step,
-              num_replicas=strategy.num_replicas_in_sync)
+              num_replicas=0)#strategy.num_replicas_in_sync)
           global_step.assign_add(1)
           return loss
 
