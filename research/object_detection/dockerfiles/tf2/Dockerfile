@@ -53,6 +53,6 @@ ENV PATH="/home/tf/.local/bin:${PATH}"
 RUN python -m pip install -U pip
 RUN python -m pip install .
 
-RUN python -m pip install boto3
+RUN python -m pip install boto3 labelbox
 
 ENV TF_CPP_MIN_LOG_LEVEL 3
