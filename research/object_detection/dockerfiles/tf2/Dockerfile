@@ -21,9 +21,7 @@ RUN apt-get update && apt-get install -y \
     libgl1-mesa-glx \
     htop \
     iputils-ping \
-    google-perftools 
-    # apt-transport-https \
-    # ca-certificates gnupg
+    google-perftools
 
 
 # Install gcloud and gsutil commands
@@ -59,9 +57,9 @@ RUN python -m pip install boto3 labelbox tflite-support tensorflow-serving-api
 RUN pip3 install -q --use-deprecated=legacy-resolver tflite-model-maker
 RUN pip3 install -q pycocotools boto3 labelbox
 
-# For some reason this file is not installed with tensorflow. We therefore copy it to the proper location
-RUN cp /home/tf/models/official/modeling/optimization/ema_optimizer.py ~/.local/lib/python3.6/site-packages/official/modeling/optimization/
-
 WORKDIR /
+
+# For some reason this file is not installed with tensorflow. We therefore copy it to the proper location
+RUN cp /home/tf/models/official/modeling/optimization/ema_optimizer.py /home/tf/.local/lib/python3.6/site-packages/official/modeling/optimization/
 
 ENV TF_CPP_MIN_LOG_LEVEL 3
