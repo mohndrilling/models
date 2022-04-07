@@ -1,5 +1,6 @@
 # FROM tensorflow/tensorflow:2.4.1-gpu
 FROM tensorflow/tensorflow:2.6.0-gpu
+# FROM tensorflow/tensorflow:2.8.0-gpu
 
 
 ARG DEBIAN_FRONTEND=noninteractive
@@ -26,10 +27,10 @@ RUN apt-get update && apt-get install -y \
 
 # Install gcloud and gsutil commands
 # https://cloud.google.com/sdk/docs/quickstart-debian-ubuntu
-RUN export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)" && \
-    echo "deb http://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list && \
-    curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - && \
-    apt-get update -y && apt-get install google-cloud-sdk -y
+# RUN export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)" && \
+#     echo "deb http://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list && \
+#     curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - && \
+#     apt-get update -y && apt-get install google-cloud-sdk -y
 
 
 # Add new user to avoid running as root
@@ -62,4 +63,6 @@ WORKDIR /
 # For some reason this file is not installed with tensorflow. We therefore copy it to the proper location
 RUN cp /home/tf/models/official/modeling/optimization/ema_optimizer.py /home/tf/.local/lib/python3.6/site-packages/official/modeling/optimization/
 
+USER tf
+# WORKDIR /labelbox
 ENV TF_CPP_MIN_LOG_LEVEL 3
